@@ -1,8 +1,10 @@
 import * as React from 'react';
 
+// @ts-ignore
 import styles from './styles.module.css';
 import classnames from 'classnames';
 import { useSlide } from './useSlide';
+import { STEP } from './constants';
 
 export interface Props {
   className?: string;
@@ -49,6 +51,18 @@ const Slider: React.FC<Props> = (props) => {
     setValue(value);
   };
 
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const offset = (max - min) * STEP;
+
+    if (event.key === 'ArrowLeft') {
+      setValue(Math.max(min, value - offset));
+    }
+
+    if (event.key === 'ArrowRight') {
+      setValue(Math.min(max, value + offset));
+    }
+  };
+
   const updateValue = React.useCallback(() => {
     if (defaultValue < min || defaultValue > max) {
       console.warn(`Default value set to ${defaultValue} but it must be between ${min} and ${max}`);
@@ -65,7 +79,14 @@ const Slider: React.FC<Props> = (props) => {
   return (
     <div className={classes} style={style}>
       {showValues && <div>{min}</div>}
-      <div className={styles.slider} ref={draggingArea}>
+      <div
+        aria-valuemax={max}
+        aria-valuemin={min}
+        aria-valuenow={value}
+        className={styles.slider}
+        ref={draggingArea}
+        role="slider"
+      >
         <div className={classesBackground} />
         <div className={classesForeground} style={{ width: percentage }} />
         <div
@@ -74,11 +95,13 @@ const Slider: React.FC<Props> = (props) => {
           onDrag={onDrag}
           onDragEnd={onDragEnd}
           onDragStart={onDragStart}
+          onKeyDown={onKeyDown}
           style={{ left: handleLeft }}
+          tabIndex={0}
         />
       </div>
       {showValues && <div>{max}</div>}
-      {showValues && <div>Value: {value.toFixed(1)}</div>}
+      {showValues && <div className={styles.value}>Value: {value.toFixed(1)}</div>}
     </div>
   );
 };

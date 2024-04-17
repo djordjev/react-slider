@@ -1,7 +1,5 @@
 import * as React from 'react';
-
-const NO_IMAGE = new Image();
-NO_IMAGE.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+import { NO_IMAGE } from './constants';
 
 type DragEvent = React.DragEvent<HTMLDivElement>;
 

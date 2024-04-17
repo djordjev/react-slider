@@ -9,7 +9,7 @@
 .component {
   align-items: center;
   display: flex;
-  gap: 8px;
+  gap: 12px;
 }
 
 .slider {
@@ -45,4 +45,9 @@
 
 .handle:hover {
   cursor: grab;
+}
+
+.value {
+  width: 84px;
+  text-align: right;
 }

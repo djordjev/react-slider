@@ -29,7 +29,7 @@ export const WithValues = {
     defaultValue: 45,
     max: 100,
     min: 10,
-    style: { width: '300px' },
+    style: { width: '500px' },
     showValues: true
   }
 };
