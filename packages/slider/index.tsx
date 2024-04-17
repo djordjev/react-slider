@@ -6,12 +6,12 @@ import classnames from 'classnames';
 import { useSlide } from './useSlide';
 import { STEP } from './constants';
 
-export interface Props {
+export interface SliderProps {
   className?: string;
   defaultValue?: number;
   max?: number;
   min?: number;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
   onChange?: (value: number, oldValue: number) => void;
   showValues?: boolean;
 }
@@ -20,7 +20,7 @@ export interface Props {
  * @name Slider
  * @param props
  */
-const Slider: React.FC<Props> = (props) => {
+const Slider: React.FC<SliderProps> = (props) => {
   const {
     className,
     defaultValue = 0,
@@ -28,7 +28,7 @@ const Slider: React.FC<Props> = (props) => {
     min = 0,
     onChange,
     showValues = false,
-    style
+    style = {}
   } = props;
 
   // Hooks
@@ -52,15 +52,24 @@ const Slider: React.FC<Props> = (props) => {
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const isLeft = event.key === 'ArrowLeft';
+    const isRight = event.key === 'ArrowRight';
+
+    if (!isLeft && !isRight) return;
+
     const offset = (max - min) * STEP;
+    let newValue: number = 0;
 
     if (event.key === 'ArrowLeft') {
-      setValue(Math.max(min, value - offset));
+      newValue = Math.max(min, value - offset);
     }
 
     if (event.key === 'ArrowRight') {
-      setValue(Math.min(max, value + offset));
+      newValue = Math.min(max, value + offset);
     }
+
+    onChange?.(newValue, value);
+    setValue(newValue);
   };
 
   const updateValue = React.useCallback(() => {

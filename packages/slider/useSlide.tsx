@@ -31,7 +31,7 @@ const useSlide = (
     [value]
   );
 
-  const onDragEnd = React.useCallback((e: DragEvent) => {
+  const onDragEnd = React.useCallback(() => {
     onEnd?.(value, initialValue.current ?? 0);
 
     initialDragPosition.current = null;
@@ -42,7 +42,9 @@ const useSlide = (
     (e: DragEvent) => {
       if (e.screenX === 0) return;
 
-      if (!initialDragPosition.current || !draggingArea.current || !initialValue.current) return;
+      if (initialDragPosition.current === null || !draggingArea.current || !initialValue.current) {
+        return;
+      }
 
       const offset = e.clientX - initialDragPosition.current;
 
