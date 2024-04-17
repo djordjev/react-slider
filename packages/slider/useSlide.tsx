@@ -1,7 +1,4 @@
 import * as React from 'react';
-import { NO_IMAGE } from './constants';
-
-type DragEvent = React.DragEvent<HTMLDivElement>;
 
 type SlideConfig = {
   draggingArea: React.RefObject<HTMLDivElement>;
@@ -30,10 +27,12 @@ const useSlide = (
 
   // Handlers
   const onDragStart = React.useCallback(
-    (e: DragEvent) => {
+    (e: MouseEvent) => {
       initialDragPosition.current = e.clientX;
       initialValue.current = value;
-      e.dataTransfer.setDragImage(NO_IMAGE, 0, 0);
+
+      document.addEventListener('mousemove', onDrag);
+      document.addEventListener('mouseup', onDragEnd);
     },
     [value]
   );
@@ -43,12 +42,13 @@ const useSlide = (
 
     initialDragPosition.current = null;
     initialValue.current = null;
+
+    document.removeEventListener('mousemove', onDrag);
+    document.removeEventListener('mouseup', onDragEnd);
   }, []);
 
   const onDrag = React.useCallback(
-    (e: DragEvent) => {
-      if (e.screenX === 0) return;
-
+    (e: MouseEvent) => {
       if (initialDragPosition.current === null || !draggingArea.current || !initialValue.current) {
         return;
       }
@@ -65,7 +65,7 @@ const useSlide = (
     [min, max, value]
   );
 
-  return { onDrag, onDragEnd, onDragStart };
+  return { onDragStart };
 };
 
 export { useSlide };

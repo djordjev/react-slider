@@ -119,7 +119,7 @@ const Slider: React.FC<SliderProps> = (props) => {
 
   // Life-cycle
   React.useEffect(updateValue, [defaultValue]);
-  const { onDrag, onDragEnd, onDragStart } = useSlide(config, onDragUpdate, onChange);
+  const { onDragStart } = useSlide(config, onDragUpdate, onChange);
 
   return (
     <div className={classes} style={style}>
@@ -136,10 +136,7 @@ const Slider: React.FC<SliderProps> = (props) => {
         <div className={classesForeground} style={{ width: percentage }} />
         <div
           className={styles.handle}
-          draggable={true}
-          onDrag={onDrag}
-          onDragEnd={onDragEnd}
-          onDragStart={onDragStart}
+          onMouseDown={onDragStart}
           onKeyDown={onKeyDown}
           style={{ left: handleLeft }}
           tabIndex={0}
