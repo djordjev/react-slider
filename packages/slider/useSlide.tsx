@@ -10,6 +10,13 @@ type SlideConfig = {
   value: number;
 };
 
+/**
+ * @name useSlide
+ * @description This hook encapsulates the logic for handling the slider drag events. It gets config
+ * values (draggingArea, max, min, value) and callbacks (onUpdate, onEnd) and returns the handlers.
+ * While user is dragging handle it fires `onUpdate` callback with the new value. When user stops
+ * dragging it calls `onEnd` callback with the new and old values.
+ */
 const useSlide = (
   config: SlideConfig,
   onUpdate: (value: number) => void,

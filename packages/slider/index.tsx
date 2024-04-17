@@ -7,18 +7,54 @@ import { useSlide } from './useSlide';
 import { STEP } from './constants';
 
 export interface SliderProps {
+  /**
+   * @description Optional class name that will be applied to top element.
+   */
   className?: string;
+
+  /**
+   * @description Default value that will be set when component is mounted. This value must be between
+   * min and max values. It's possible to programatically control the slider using this prop.
+   */
   defaultValue?: number;
+
+  /**
+   * @description Maximum value that slider can have. @default value is 100.
+   */
   max?: number;
+
+  /**
+   * @description Minimum value that slider can have. @default value is 0.
+   */
   min?: number;
+
+  /**
+   * @description Optional styles that can be passed as object from parent component.
+   */
   style?: React.CSSProperties;
+
+  /**
+   * @description `onChange` callback will be called every time when user changes slider value.
+   * That can be either by stop dragging (not fired while dragging handle) or after key press.
+   * @param value New value of the slider
+   * @param oldValue Old value of the slider (before dragging started)
+   * @returns void;
+   */
   onChange?: (value: number, oldValue: number) => void;
+
+  /**
+   * @description Flag indicating whether to show values or not. If set to true it will display min,
+   * max and current value. If set to false it will only display slider.
+   */
   showValues?: boolean;
 }
 
 /**
  * @name Slider
- * @param props
+ * @description This is an implementation of slider. User can either drag the handle or use arrow keys
+ * to move slider. There are two modes what the component will display. If `showValues` is set to true
+ * it will display min and max values and current value. If `showValues` is set to false it will only
+ * show slider without any additional information.
  */
 const Slider: React.FC<SliderProps> = (props) => {
   const {
