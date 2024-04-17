@@ -7,10 +7,6 @@ export default {
   parameters: {
     layout: 'centered'
   },
-  args: {}
-};
-
-export const Continuous = {
   args: {
     defaultValue: 45,
     max: 100,
@@ -19,4 +15,21 @@ export const Continuous = {
   }
 };
 
-export const NotContinuous = {};
+export const NoValues = {
+  args: {
+    defaultValue: 45,
+    max: 100,
+    min: 10,
+    style: { width: '300px' }
+  }
+};
+
+export const WithValues = {
+  args: {
+    defaultValue: 45,
+    max: 100,
+    min: 10,
+    style: { width: '300px' },
+    showValues: true
+  }
+};

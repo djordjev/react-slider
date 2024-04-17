@@ -11,6 +11,7 @@ export interface Props {
   min?: number;
   style: React.CSSProperties;
   onChange?: (value: number, oldValue: number) => void;
+  showValues?: boolean;
 }
 
 /**
@@ -18,7 +19,15 @@ export interface Props {
  * @param props
  */
 const Slider: React.FC<Props> = (props) => {
-  const { className, defaultValue = 0, max = 100, min = 0, onChange, style } = props;
+  const {
+    className,
+    defaultValue = 0,
+    max = 100,
+    min = 0,
+    onChange,
+    showValues = false,
+    style
+  } = props;
 
   // Hooks
   const [value, setValue] = React.useState(defaultValue || min);
@@ -55,7 +64,8 @@ const Slider: React.FC<Props> = (props) => {
 
   return (
     <div className={classes} style={style}>
-      <div ref={draggingArea}>
+      {showValues && <div>{min}</div>}
+      <div className={styles.slider} ref={draggingArea}>
         <div className={classesBackground} />
         <div className={classesForeground} style={{ width: percentage }} />
         <div
@@ -67,6 +77,8 @@ const Slider: React.FC<Props> = (props) => {
           style={{ left: handleLeft }}
         />
       </div>
+      {showValues && <div>{max}</div>}
+      {showValues && <div>Value: {value.toFixed(1)}</div>}
     </div>
   );
 };

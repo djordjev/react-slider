@@ -1,13 +1,21 @@
 :root {
   --color-background: #BFB1DF;
   --color-foreground: #4F32DC;
+  --color-handle: #300ddb;
   --size: 12px;
   --full-size: calc(var(--size) * 2);
 }
 
 .component {
-  position: relative;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.slider {
+  flex: 1 0;
   height: calc(var(--full-size));
+  position: relative;
 }
 
 .bar {
@@ -27,7 +35,8 @@
 }
 
 .handle {
-  background-color: var(--color-foreground);
+  background-color: var(--color-handle);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 100%;
   height: calc(var(--full-size));
   position: absolute;
