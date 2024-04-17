@@ -1,26 +1,22 @@
-import { Slider } from './index';
-import { fn } from '@storybook/test';
+import { Slider } from './index.tsx';
 
 export default {
   title: 'Components/Slider',
   component: Slider,
   tags: ['components'],
   parameters: {
-    layout: 'fullscreen',
+    layout: 'centered'
   },
-  args: {
-    onLogin: fn(),
-    onLogout: fn(),
-    onCreateAccount: fn(),
-  },
+  args: {}
 };
 
 export const Continuous = {
   args: {
-    user: {
-      name: 'Jane Doe',
-    },
-  },
+    defaultValue: 45,
+    max: 100,
+    min: 10,
+    style: { width: '300px' }
+  }
 };
 
 export const NotContinuous = {};

@@ -1,5 +1,39 @@
+:root {
+  --color-background: #BFB1DF;
+  --color-foreground: #4F32DC;
+  --size: 12px;
+  --full-size: calc(var(--size) * 2);
+}
+
 .component {
-  background-color: red;
-  min-height: 100px;
-  min-width: 100px;
+  position: relative;
+  height: calc(var(--full-size));
+}
+
+.bar {
+  border-radius: 4px;
+  height: var(--size);
+  margin-top: calc(var(--size) / 2);
+  position: absolute;
+  width: 100%;
+}
+
+.background {
+  background-color: var(--color-background);
+}
+
+.foreground {
+  background-color: var(--color-foreground);
+}
+
+.handle {
+  background-color: var(--color-foreground);
+  border-radius: 100%;
+  height: calc(var(--full-size));
+  position: absolute;
+  width: calc(var(--full-size));
+}
+
+.handle:hover {
+  cursor: grab;
 }
